@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Zipping Lambda..."
+      - zip payment-fraud.zip lambda_function.py
+      - echo "Updating Lambda..."
+      - aws lambda update-function-code --function-name payment-fraud --zip-file fileb://payment-fraud.zip --region us-east-1
+      - echo "Done."
