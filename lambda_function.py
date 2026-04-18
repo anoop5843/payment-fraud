@@ -34,7 +34,7 @@ def lambda_handler(event, context):
             "score": risk["risk_score"],
             "provider": risk.get("provider"),
         }))
-        return _resp(403, {"error": "blocked by risk policy", "txn_id": txn_id})
+        return _resp(403, {"error": "blocked by the risk policy", "txn_id": txn_id})
 
     log.info(json.dumps({
         "event": "fraud_passed",
