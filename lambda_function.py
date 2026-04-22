@@ -25,7 +25,7 @@ def lambda_handler(event, context):
         risk = _call_vendor(amount, merchant_id)
     except Exception as e:
         log.exception("risk_vendor_unavailable")
-        return _resp(503, {"error": "risk service is unavailable", "txn_id": txn_id})
+        return _resp(503, {"error": "service is unavailable", "txn_id": txn_id})
 
     if risk["risk_score"] >= RISK_THRESHOLD:
         log.warning(json.dumps({
@@ -56,7 +56,7 @@ def lambda_handler(event, context):
 
 
 def _call_vendor(amount, merchant_id):
-    url = f"{RISK_URL}/scoress?amount={amount}&merchant_id={merchant_id}"
+    url = f"{RISK_URL}/score?amount={amount}&merchant_id={merchant_id}"
     req = urllib.request.Request(url, headers={"Accept": "application/json"})
     with urllib.request.urlopen(req, timeout=RISK_TIMEOUT) as resp:
         if resp.status != 200:
