@@ -25,7 +25,7 @@ def lambda_handler(event, context):
         risk = _call_vendor(amount, merchant_id)
     except Exception as e:
         log.exception("risk_vendor_unavailable")
-        return _resp(503, {"error": "service is unavailable", "txn_id": txn_id})
+        return _resp(503, {"error": "service unavailable", "txn_id": txn_id})
 
     if risk["risk_score"] >= RISK_THRESHOLD:
         log.warning(json.dumps({
